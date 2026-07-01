@@ -158,7 +158,7 @@ const ASSUMPTIONS = {
   subsidy: {
     // simplified central subsidy slabs (residential only, ₹)
     tier1: { maxKw: 2, perKw: 30000 },
-    tier2: { maxKw: 3, flat: 60000, extraPerKw: 18000 },
+    tier2: { maxKw: 3, flat: 78000 },
   }
 };
 
