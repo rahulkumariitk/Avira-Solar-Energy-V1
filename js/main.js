@@ -3,7 +3,7 @@
 =========================================================== */
 
 const WHATSAPP_NUMBER = "918529419240"; 
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbzmVb4Kw9DIQL32YjK3TaxRbyWp-D9PbxBtVj2pufh46pwB52QwjRNUZaRaOCL6dy-0/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyrVSs7nMbj5jX2W1SbPsW8qTUXK-QM4VIp4Gfq68pmOhMl0JRMkb8T3OryWwVv6t-a/exec";
 
 // ---------- Animated stat counters ----------
 function animateCounters() {
