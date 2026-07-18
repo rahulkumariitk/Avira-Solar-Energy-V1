@@ -545,7 +545,8 @@
             <div class="ray"><div class="v" id="rAnnual">--</div><div class="l">Annual Savings</div></div>
             <div class="ray"><div class="v" id="r25yr">--</div><div class="l">25-Year Savings</div></div>
           </div>
-          <button class="calc-cta" onclick="openModal()">Get This Quote on WhatsApp →</button>
+          <p id="solar-calculation-note" style="padding-top: 15px;"></p>
+          <button class="calc-cta" onclick="openModal()">Get This Quote →</button>
         </div>
       </div>
     </div>
@@ -739,9 +740,9 @@
       <p style="margin-top:10px; max-width:300px;">📍Branch Office: Ward No.-41, Bhardwaj Nagar, Begusarai-851129 (Bihar)</p>
     </div>
     <div>
-      <p>📞 +91 85294 19240</p>
-      <p>📞 +91 82108 21611</p>
-      <p>✉️ contact@aviragroup.co.in</p>
+      <p><a href="tel:+918529419240">📞 +91 85294 19240</a></p>
+      <p><a href="tel:+918210821611">📞 +91 82108 21611</a></p>
+      <p><a href="mailto:contact@aviragroup.co.in">✉️ contact@aviragroup.co.in</a></p>
       <p>🌐<a href = "https://www.avirasolarenergy.com">Avira Solar Energy</a></p>
       <p>🌐<a href = "https://aviragroup.co.in">Avira Group</a></p>
       <p style="margin-top:8px;">© 2026 Avira Solar Energy. All rights reserved.</p>
@@ -759,10 +760,10 @@
   <div class="modal">
     <button class="close" onclick="closeModal()">×</button>
     <h3>Get Your Free Quotation</h3>
-    <p class="sub">Share your number — our solar expert will send your personalized quote on WhatsApp.</p>
+    <p class="sub">Share your number — our solar expert will send your personalized quote.</p>
     <form onsubmit="submitLead(event)">
       <div class="field"><label>Name</label><input required id="leadName" placeholder="Your name"></div>
-      <div class="field"><label>Phone Number</label><input required id="leadPhone" placeholder="WhatsApp number"></div>
+      <div class="field"><label>Phone Number</label><input required id="leadPhone" placeholder="Phone number"></div>
       <button class="calc-submit" type="submit">Send My Quote →</button>
     </form>
   </div>

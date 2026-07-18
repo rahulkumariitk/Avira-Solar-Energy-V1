@@ -10,6 +10,7 @@ function animateCounters() {
   document.querySelectorAll('[data-count]').forEach(el => {
     const isDecimal = el.hasAttribute('data-decimal');
     const target = parseFloat(el.getAttribute('data-count'));
+    const hasPlus = el.getAttribute('data-count').endsWith('+');
     let current = 0;
     const steps = 40;
     const increment = target / steps;
@@ -18,7 +19,7 @@ function animateCounters() {
       frame++;
       current += increment;
       if (frame >= steps) {
-        el.textContent = isDecimal ? target.toFixed(1) : Math.round(target).toLocaleString('en-IN');
+        el.textContent = (isDecimal ? target.toFixed(1) : Math.round(target).toLocaleString('en-IN')) + (hasPlus ? '+' : '');
         return;
       }
       el.textContent = isDecimal ? current.toFixed(1) : Math.round(current).toLocaleString('en-IN');
@@ -53,8 +54,10 @@ setTimeout(() => {
 let lastResult = null;
 
 function runCalculator() {
+  lastResult = null;
+
   const bill = parseFloat(document.getElementById('bill').value) || 0;
-  const rate = parseFloat(document.getElementById('rate').value) || 8;
+  const rate = parseFloat(document.getElementById('rate').value) || 0;
   const propType = document.getElementById('propType').value;
   const roofArea = parseFloat(document.getElementById('roofArea').value) || 0;
   const state = document.getElementById('state').value || "";
@@ -62,6 +65,16 @@ function runCalculator() {
 
   if (bill <= 0) {
     alert('Please enter your monthly electricity bill.');
+    return;
+  }
+
+  if (rate <= 0) {
+    alert('Rate must be greater than 0');
+    return;
+  }
+
+  if (roofArea < 0) {
+    alert('Roof area cannot be negative');
     return;
   }
 
@@ -90,8 +103,11 @@ function runCalculator() {
   document.getElementById('rAnnual').textContent = formatINR(r.annualSavings);
   document.getElementById('r25yr').textContent = formatINR(r.lifetimeSavings);
 
-  // auto-open lead capture popup after results appear
-  setTimeout(openModal, 800);
+  if (propType == 'residential' && r.recommendedKw > 5) {
+    document.getElementById('solar-calculation-note').textContent = "Note : We recommend a commercial system for your property, as it exceeds 5 kW.";
+  } else {
+    document.getElementById('solar-calculation-note').textContent = "";
+  }
 
   document.getElementById('resultsContent').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
