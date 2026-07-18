@@ -3,7 +3,7 @@
 =========================================================== */
 
 const WHATSAPP_NUMBER = "918529419240"; 
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbzaVfUhECz_AqNJxNg6EOR9dgtUU9YixlurnaAvMSpKqxj0uR7edBbogKFWmUFtQhoE/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyrVSs7nMbj5jX2W1SbPsW8qTUXK-QM4VIp4Gfq68pmOhMl0JRMkb8T3OryWwVv6t-a/exec";
 
 // ---------- Animated stat counters ----------
 function animateCounters() {
@@ -215,7 +215,7 @@ async function submitLead(e) {
       property_type: lastResult.propType,
       roof_area: lastResult.roofArea,
       roof_type: lastResult.roofType,
-      bill: lastResult.bill,
+      monthly_bill: lastResult.bill,
       rate: lastResult.rate,
       state: lastResult.state,
       recommended_kw: lastResult.recommendedKw,
