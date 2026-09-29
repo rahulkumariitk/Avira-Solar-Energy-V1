@@ -1,135 +1,116 @@
-
-import blogPostJSON from '../assests/blog_post.json' with { type: 'json' };
-import projectsJSON from '../assests/projects.json' with { type: 'json' };
-import residentialTypesJSON from '../assests/residential_types.json' with { type: 'json' };
-
 /* ===========================================================
-   RESIDENTIAL TYPES — On-Grid / Off-Grid / Hybrid
+   RENDER — builds the Projects gallery and Solar Guides (blog)
+   from the JSON files in /assests.
+   To add a project or post, edit the JSON only — no HTML needed.
 =========================================================== */
 
-const RESIDENTIAL_TYPES = residentialTypesJSON;
+const PROJECTS_URL = './assests/projects.json';
+const BLOG_URL = './assests/blog_post.json';
+const INSTAGRAM_URL = 'https://www.instagram.com/avirasolarenergy';
 
-function openResidentialType(key) {
-    const t = RESIDENTIAL_TYPES[key];
-    if (!t) return;
-    document.getElementById('typeModalBody').innerHTML = `
-    <button class="close" onclick="closeTypeModal()">×</button>
-    <div class="type-hero">
-      <img src="${t.image}" alt="${t.title}">
-      <div class="tag">${t.tag}</div>
-    </div>
-    <div class="type-body">
-      <h3>${t.title}</h3>
-      <p>${t.description}</p>
-      <ul>${t.points.map(p => `<li>${p}</li>`).join('')}</ul>
-      <div class="type-lead">
-        <h4>Want a quote for ${t.title}?</h4>
-        <form onsubmit="submitTypeLead(event, '${t.title}')">
-          <div class="field"><label>Name</label><input required id="typeLeadName" type="text" minlength="3" maxlength="50" placeholder="Your name"></div>
-          <div class="field"><label>Mobile Number</label><input required id="typeLeadPhone" type="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" title="Enter a valid 10-digit Indian mobile number" placeholder="Mobile number"></div>
-          <div class="field"><label>Address</label><input required id="typeLeadAddress" type="text" minlength="2" maxlength="150" placeholder="Your address / city"></div>
-          <button class="calc-submit" type="submit">Send My Details →</button>
-        </form>
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const cityOf = loc => String(loc || '').split(',')[0].trim();
+const kwOf = name => { const m = String(name).match(/(\d+(?:\.\d+)?)\s*kw/i); return m ? m[1] + ' kW' : ''; };
+
+async function loadJSON(url) {
+  const res = await fetch(url, { cache: 'no-cache' });
+  if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+  return res.json();
+}
+
+/* ---------- Projects ---------- */
+let PROJECTS = [];
+
+function projectMedia(p) {
+  if (p.type === 'youtube') {
+    return `<iframe src="https://www.youtube.com/embed/${esc(p.youtubeId)}" title="${esc(p.name)}" loading="lazy" allowfullscreen></iframe>`;
+  }
+  if (p.type === 'video') {
+    return `<video src="${esc(p.image)}" controls preload="metadata"></video>`;
+  }
+  if (p.type === 'reel') {
+    const insta = p.reelPlatform === 'instagram';
+    return `<a class="reel ${insta ? 'insta' : 'fb'}" href="${esc(p.reelUrl)}" target="_blank" rel="noopener"><span>▶</span>View ${insta ? 'Instagram' : 'Facebook'} reel</a>`;
+  }
+  return `<img src="${esc(p.image)}" alt="${esc(p.name)} in ${esc(p.location)}" loading="lazy">`;
+}
+
+function renderProjects(filter = 'all') {
+  const grid = document.getElementById('projGrid');
+  const list = PROJECTS.filter(p => filter === 'all' || cityOf(p.location) === filter);
+  grid.innerHTML = list.map(p => {
+    const kw = kwOf(p.name);
+    const interactive = p.type === 'youtube' || p.type === 'video' || p.type === 'reel';
+    return `
+    <article class="proj${interactive ? ' media' : ''}">
+      ${projectMedia(p)}
+      <div class="info">
+        <h4>${esc(p.name)}</h4>
+        <div class="meta">${kw ? `<span class="kw">${kw}</span>` : ''}<span>${esc(cityOf(p.location))}</span></div>
       </div>
-      <p style="margin-top:18px; text-align:center; font-size:13.5px;">
-        <a href="#" onclick="closeTypeModal(); openBlogPost(2); return false;" style="color:var(--blue); font-weight:600;">📖 Read our full On-Grid vs Off-Grid vs Hybrid comparison guide →</a>
-      </p>
-    </div>
-  `;
-    document.getElementById('typeModalOverlay').classList.add('show');
+    </article>`;
+  }).join('') || '<p class="muted">No projects to show here yet.</p>';
 }
 
-window.openResidentialType = openResidentialType;
-
-/* ===========================================================
-   PROJECTS 
-=========================================================== */
-
-function getProjects() {
-    return projectsJSON;
+function renderFilters() {
+  const cities = [...new Set(PROJECTS.map(p => cityOf(p.location)).filter(Boolean))];
+  const box = document.getElementById('filters');
+  box.innerHTML = ['all', ...cities].map((c, i) =>
+    `<button class="chip${i === 0 ? ' active' : ''}" data-f="${esc(c)}">${c === 'all' ? 'All' : esc(c)}</button>`).join('');
+  box.querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => {
+    box.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+    chip.classList.add('active');
+    renderProjects(chip.dataset.f);
+  }));
 }
 
-function renderProjects() {
-    const query = (document.getElementById('projectSearch')?.value || '').toLowerCase();
-    const list = getProjects().filter(p =>
-        p.name.toLowerCase().includes(query) || p.location.toLowerCase().includes(query)
-    );
-    const grid = document.getElementById('projectGrid');
-    if (!grid) return;
-
-    if (list.length === 0) {
-        grid.innerHTML = `<div class="project-empty">No projects found matching "${query}".</div>`;
-        return;
-    }
-
-    grid.innerHTML = list.map(p => {
-        let mediaHtml = '';
-        if (p.type === 'youtube') {
-            mediaHtml = `<iframe src="https://www.youtube.com/embed/${p.youtubeId}" allowfullscreen></iframe>`;
-        } else if (p.type === 'video') {
-            mediaHtml = `<video src="${p.image}" controls></video>`;
-        } else if (p.type === 'reel') {
-            const platformLabel = p.reelPlatform === 'instagram' ? 'Instagram Reel' : 'Facebook Reel';
-            const bgColor = p.reelPlatform === 'instagram' ? 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)' : '#1877F2';
-            mediaHtml = `<a href="${p.reelUrl}" target="_blank" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; background:${bgColor}; color:#fff; text-decoration:none; gap:8px;"><span style="font-size:28px;">▶</span><span style="font-size:13px; font-weight:600;">View ${platformLabel}</span></a>`;
-        } else {
-            mediaHtml = `<div class="media" style="background-image:url('${p.image}')"></div>`;
-        }
-        return `
-      <div class="project-card reveal visible">
-        ${p.type === 'youtube' || p.type === 'video' || p.type === 'reel' ? `<div class="media">${mediaHtml}</div>` : mediaHtml}
-        <div class="body">
-          <h4>${p.name}</h4>
-          <div class="loc">📍 ${p.location}</div>
-        </div>
-      </div>`;
-    }).join('');
-}
-
-window.renderProjects = renderProjects;
-
-/* ===========================================================
-   BLOG 
-=========================================================== */
-
-function getBlogPosts() {
-    return blogPostJSON;
-}
+/* ---------- Solar guides (blog) ---------- */
+let POSTS = [];
 
 function renderBlog() {
-    const grid = document.getElementById('blogGrid');
-    if (!grid) return;
-    const posts = getBlogPosts();
-    grid.innerHTML = posts.map((p, i) => `
-      <div class="blog-card reveal visible" onclick="openBlogPost(${i})">
-        <div class="img" style="background-image:url('${p.image}')"></div>
-        <div class="body">
-          <div class="cat">${p.category}</div>
-          <h4>${p.title}</h4>
-          <p>${p.excerpt}</p>
-        </div>
+  const grid = document.getElementById('blogGrid');
+  grid.innerHTML = POSTS.map((p, i) => `
+    <button class="post" data-post="${i}">
+      <div class="img">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : ''}</div>
+      <div class="body">
+        <span class="cat">${esc(p.category)}</span>
+        <h4>${esc(p.title)}</h4>
+        <p>${esc(p.excerpt)}</p>
+        <span class="more">Read guide →</span>
       </div>
-    `).join('');
+    </button>`).join('');
+  grid.querySelectorAll('[data-post]').forEach(b => b.addEventListener('click', () => openBlogPost(+b.dataset.post)));
 }
 
-function openBlogPost(index) {
-    const p = getBlogPosts()[index];
-    document.getElementById('blogModalBody').innerHTML = `
-      <button class="close" onclick="closeBlogModal()">×</button>
-      <div class="type-hero"><img src="${p.image}" alt="${p.title}"><div class="tag">${p.category}</div></div>
-      <div class="type-body">
-        <h3>${p.title}</h3>
-        <p style="white-space:pre-line;">${p.content}</p>
-      </div>
-    `;
-    document.getElementById('blogModalOverlay').classList.add('show');
+function openBlogPost(i) {
+  const p = POSTS[i];
+  if (!p) return;
+  document.getElementById('blogModalBody').innerHTML = `
+    ${p.image ? `<img class="post-hero" src="${esc(p.image)}" alt="">` : ''}
+    <span class="cat">${esc(p.category)}</span>
+    <h3>${esc(p.title)}</h3>
+    <div class="post-content">${esc(p.content)}</div>
+    <a class="btn btn-primary" href="#contact" data-close-blog>Talk to a solar expert →</a>`;
+  document.querySelectorAll('#blogModal [data-close-blog]').forEach(el => el.addEventListener('click', closeBlogModal));
+  document.getElementById('blogModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
 }
+function closeBlogModal() {
+  document.getElementById('blogModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+window.closeBlogModal = closeBlogModal;
+document.querySelectorAll('#blogModal [data-close-blog]').forEach(el => el.addEventListener('click', closeBlogModal));
+document.getElementById('blogModal').addEventListener('click', e => { if (e.target.id === 'blogModal') closeBlogModal(); });
 
-window.openBlogPost = openBlogPost;
+/* ---------- Load ---------- */
+loadJSON(PROJECTS_URL)
+  .then(data => { PROJECTS = data; renderFilters(); renderProjects(); })
+  .catch(err => {
+    console.error(err);
+    document.getElementById('projGrid').innerHTML = `<p class="muted">See our latest installations on <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener">Instagram</a>.</p>`;
+  });
 
-// ---------- Initial render on page load ----------
-
-window.addEventListener('load', () => {
-    renderProjects();
-    renderBlog();
-});
+loadJSON(BLOG_URL)
+  .then(data => { POSTS = data; renderBlog(); })
+  .catch(err => { console.error(err); document.getElementById('guides').hidden = true; });
