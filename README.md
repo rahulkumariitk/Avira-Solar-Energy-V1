@@ -14,6 +14,8 @@ js/render.js            Builds Projects gallery + Solar Guides from the JSON fil
 js/decor.js             Live numbers for the decorative animations (optional)
 assests/projects.json   Project gallery data
 assests/blog_post.json  Solar Guides data
+assests/partners.json   Brand, bank, agency and sales partners
+assests/careers.json    Job openings
 assests/images/         Logo, favicon and project photos
 ```
 
@@ -30,6 +32,13 @@ assests/images/         Logo, favicon and project photos
 - Please use image files rather than pasting base64 into the JSON — the page loads much faster.
 
 **Add a guide** — add an entry to `assests/blog_post.json` (`title`, `category`, `image`, `excerpt`, `content`).
+
+**Partners** — edit `assests/partners.json` (brand groups, `banks`, `agencies`, `sales`).
+To show an official logo instead of the initials tile, put the file in `assests/images/partners/`
+and set `"logo": "waaree.png"` on that partner. If a logo file is missing, the initials tile shows automatically.
+
+**Job openings** — edit `assests/careers.json` (`title`, `type`, `location`, `summary`, `points`).
+Remove all entries to hide the Careers section. Applicants apply via WhatsApp or email.
 
 **Change prices or subsidy** — edit `ASSUMPTIONS` and `SUBSIDY` at the top of `js/solar_calculation.js`.
 

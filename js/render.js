@@ -114,3 +114,93 @@ loadJSON(PROJECTS_URL)
 loadJSON(BLOG_URL)
   .then(data => { POSTS = data; renderBlog(); })
   .catch(err => { console.error(err); document.getElementById('guides').hidden = true; });
+
+/* ---------- Partners (brands, banks, agencies, sales) ---------- */
+const PARTNERS_URL = './assests/partners.json';
+const CAREERS_URL = './assests/careers.json';
+const LOGO_DIR = './assests/images/partners/';
+const SKIP_WORDS = new Set(['and', 'pvt', 'ltd', 'the', '&']);
+
+function monogram(name) {
+  let words = String(name).split(/\s+/).filter(w => !SKIP_WORDS.has(w.toLowerCase()));
+  if (words.length >= 4) words = words.filter(w => w.toLowerCase() !== 'of');   // State Bank of India → SBI
+  if (words.length >= 3) return words.slice(0, 3).map(w => w[0]).join('').toUpperCase(); // Bank of India → BOI
+  if (words[0] && words[0].length <= 4 && words[0] === words[0].toUpperCase()) return words[0];
+  if (words.length === 2) return (words[0][0] + words[1][0]).toUpperCase();
+  return String(words[0] || '?').slice(0, 2).toUpperCase();
+}
+
+function brandTile(item) {
+  const logo = item.logo ? (item.logo.includes('/') ? item.logo : LOGO_DIR + item.logo) : '';
+  return `
+    <div class="brand-tile${logo ? ' has-logo' : ''}">
+      <div class="brand-mark">
+        ${logo ? `<img src="${esc(logo)}" alt="${esc(item.name)} logo" loading="lazy" onerror="this.parentNode.parentNode.classList.remove('has-logo');this.remove()">` : ''}
+        <span class="mono" aria-hidden="true">${esc(monogram(item.name))}</span>
+      </div>
+      <span class="brand-name">${esc(item.name)}</span>
+      ${item.note ? `<span class="brand-note">${esc(item.note)}</span>` : ''}
+    </div>`;
+}
+
+const telHref = phone => 'tel:' + String(phone).replace(/[^\d+]/g, '');
+const waHref = (phone, msg) => 'https://wa.me/' + String(phone).replace(/\D/g, '') + (msg ? '?text=' + encodeURIComponent(msg) : '');
+
+function renderPartners(data) {
+  const groups = document.getElementById('brandGroups');
+  groups.innerHTML = (data.brands || []).map(g => `
+    <div class="brand-group cat-${esc(g.id)} reveal">
+      <h3 class="net-title"><svg><use href="#${esc(g.icon || 'i-check')}"/></svg>${esc(g.title)}</h3>
+      <div class="brand-tiles">${g.items.map(brandTile).join('')}</div>
+    </div>`).join('');
+
+  const banks = data.banks || [];
+  if (banks.length) document.getElementById('bankTiles').innerHTML = banks.map(brandTile).join('');
+  else document.getElementById('bankBlock').hidden = true;
+
+  document.getElementById('agencyList').innerHTML = (data.agencies || []).map(a => `
+    <li><span class="mono sm" aria-hidden="true">${esc(monogram(a.name))}</span>
+      <span><b>${esc(a.name)}</b><small><svg><use href="#i-pin"/></svg>${esc(a.city)}</small></span></li>`).join('');
+
+  document.getElementById('salesList').innerHTML = (data.sales || []).map(p => `
+    <li><span class="mono sm" aria-hidden="true">${esc(monogram(p.name))}</span>
+      <span><b>${esc(p.name)}</b><small>${esc(p.phone)}</small></span>
+      <span class="contact-btns">
+        <a href="${telHref(p.phone)}" aria-label="Call ${esc(p.name)}"><svg><use href="#i-phone"/></svg></a>
+        <a class="wa" href="${waHref(p.phone, 'Hi, I found you on the Avira Solar website. I am interested in rooftop solar.')}" target="_blank" rel="noopener" aria-label="WhatsApp ${esc(p.name)}"><svg><use href="#i-wa"/></svg></a>
+      </span></li>`).join('');
+
+  if (window.observeReveal) observeReveal(document.getElementById('partners'));
+}
+
+/* ---------- Careers ---------- */
+function renderCareers(jobs) {
+  const grid = document.getElementById('jobGrid');
+  grid.innerHTML = jobs.map(j => {
+    const applyMsg = `Hello Avira Solar, I would like to apply for the ${j.title} position.\nName:\nPhone:\nCity:\nExperience:`;
+    const mail = `mailto:contact@aviragroup.co.in?subject=${encodeURIComponent('Application - ' + j.title)}`;
+    return `
+    <article class="job reveal">
+      <div class="job-top">
+        <h3>${esc(j.title)}</h3>
+        ${j.type ? `<span class="job-type">${esc(j.type)}</span>` : ''}
+      </div>
+      ${j.location ? `<p class="job-loc"><svg><use href="#i-pin"/></svg>${esc(j.location)}</p>` : ''}
+      <p class="job-sum">${esc(j.summary)}</p>
+      ${j.points && j.points.length ? `<ul>${j.points.map(pt => `<li>${esc(pt)}</li>`).join('')}</ul>` : ''}
+      <div class="job-actions">
+        <a class="btn btn-primary" href="${waHref(WHATSAPP_NUMBER, applyMsg)}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Apply on WhatsApp</a>
+        <a class="btn btn-ghost" href="${mail}"><svg><use href="#i-mail"/></svg>Email CV</a>
+      </div>
+    </article>`;
+  }).join('');
+  if (window.observeReveal) observeReveal(grid);
+}
+
+loadJSON(PARTNERS_URL)
+  .then(renderPartners)
+  .catch(err => { console.error(err); ['partners', 'network'].forEach(id => document.getElementById(id).hidden = true); });
+
+loadJSON(CAREERS_URL)
+  .then(jobs => jobs.length ? renderCareers(jobs) : (document.getElementById('careers').hidden = true))
+  .catch(err => { console.error(err); document.getElementById('careers').hidden = true; });
