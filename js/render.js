@@ -115,7 +115,7 @@ loadJSON(BLOG_URL)
   .then(data => { POSTS = data; renderBlog(); })
   .catch(err => { console.error(err); document.getElementById('guides').hidden = true; });
 
-/* ---------- Partners (brands, banks, agencies, sales) ---------- */
+/* ---------- Partners (brands, banks, sales) ---------- */
 const PARTNERS_URL = './assests/partners.json';
 const CAREERS_URL = './assests/careers.json';
 const LOGO_DIR = './assests/images/partners/';
@@ -158,9 +158,6 @@ function renderPartners(data) {
   if (banks.length) document.getElementById('bankTiles').innerHTML = banks.map(brandTile).join('');
   else document.getElementById('bankBlock').hidden = true;
 
-  document.getElementById('agencyList').innerHTML = (data.agencies || []).map(a => `
-    <li><span class="mono sm" aria-hidden="true">${esc(monogram(a.name))}</span>
-      <span><b>${esc(a.name)}</b><small><svg><use href="#i-pin"/></svg>${esc(a.city)}</small></span></li>`).join('');
 
   document.getElementById('salesList').innerHTML = (data.sales || []).map(p => `
     <li><span class="mono sm" aria-hidden="true">${esc(monogram(p.name))}</span>
