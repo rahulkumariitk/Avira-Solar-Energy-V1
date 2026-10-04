@@ -1,0 +1,36 @@
+[
+  {
+    "title": "Sales Associate",
+    "type": "Full-time",
+    "location": "Patna / Lakhisarai / Begusarai / Sheikhpura",
+    "summary": "Help us grow by generating leads for the company.",
+    "points": [
+      "Find and follow up with homes and businesses interested in solar",
+      "Explain our systems, subsidy and loan options to customers",
+      "Coordinate site surveys with our engineers"
+    ]
+  },
+  {
+    "title": "System Engineer",
+    "type": "Full-time",
+    "location": "Patna (Head Office)",
+    "summary": "Take care of everything computer-related that keeps our projects moving.",
+    "points": [
+      "Apply for new registrations on government portals",
+      "Create quotations / PIs and invoices",
+      "File loan applications for customers",
+      "Manage sales orders, invoices and order tracking"
+    ]
+  },
+  {
+    "title": "Solar Installer",
+    "type": "Full-time",
+    "location": "Across Bihar (on-site)",
+    "summary": "Be responsible for end-to-end solar installation — top quality and on time.",
+    "points": [
+      "Install mounting structures, panels, inverters and wiring",
+      "Follow safety and quality standards on every site",
+      "Commission systems and hand over to customers"
+    ]
+  }
+]
