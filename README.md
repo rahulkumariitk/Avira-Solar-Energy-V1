@@ -52,6 +52,22 @@ Remove all entries to hide the Careers section. Applicants apply via WhatsApp or
 <script src="js/decor.js" defer></script>
 ```
 
+## After changing CSS or JS — bump the version ⚠️
+
+Browsers keep their own copy of `css/*.css` and `js/*.js`. If you edit one of those files, visitors may
+see the new page with the old styles/scripts (broken layout, empty sections) until their copy expires.
+
+To force everyone to load the new files, change the `?v=` number on **all** the CSS/JS links in `index.html`
+(use today's date), e.g.:
+
+```html
+<link rel="stylesheet" href="css/style.css?v=20261004">
+<script src="js/main.js?v=20261004" defer></script>
+```
+
+Find-and-replace the old number with the new one so every link matches. JSON files (projects, partners,
+careers…) don't need this — the page always re-checks them.
+
 ## Lead forms
 
 All forms post to the Google Apps Script in `js/main.js` (`SHEET_URL`) using the sheet tabs
