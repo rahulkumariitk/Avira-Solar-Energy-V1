@@ -11,6 +11,7 @@ css/decor.css           Decorative solar animations (optional)
 js/solar_calculation.js Prices, subsidy slabs and calculator formulas
 js/main.js              Navigation, calculator UI, lead forms → Google Sheet
 js/render.js            Builds Projects gallery + Solar Guides from the JSON files
+js/support.js           Help & Support form (complaints, feedback, questions)
 js/decor.js             Live numbers for the decorative animations (optional)
 assests/projects.json   Project gallery data
 assests/blog_post.json  Solar Guides data
@@ -55,6 +56,29 @@ Remove all entries to hide the Careers section. Applicants apply via WhatsApp or
 
 All forms post to the Google Apps Script in `js/main.js` (`SHEET_URL`) using the sheet tabs
 `Contact Form`, `Solar Calculator Form` and `General Inquiry Form`.
+
+## Help & Support form
+
+Sends to the same Apps Script as the other forms, with `sheet_name: "Support Form"`.
+
+**One-time setup:** in the Google Sheet, add a tab named exactly `Support Form` with this header row:
+
+```
+ticket_id | request_type | priority | name | phone | email | city | system_size | installed_on | customer_ref | issue_type | rating | message | submitted_at
+```
+
+(If your script also writes a `sheet_name` or timestamp column on the other tabs, add it here the same way.)
+
+**Until that tab exists**, nothing is lost: if the script rejects `Support Form`, the website automatically
+re-sends the request to the `Contact Form` tab, with `property_type` set to e.g. `SUPPORT – Complaint (URGENT)`
+and all the details (reference number, system size, issue, message) in `message`. So you still get the email.
+If the sheet can't be reached at all, the customer is offered a pre-filled WhatsApp message instead.
+
+Each request gets a reference number like `AVS-261004-3NQG` (date + 4 random characters), shown to the customer.
+Urgent requests ("System not working at all") have `priority: URGENT`.
+
+Deep links pre-select the request type: `#support-complaint`, `#support-service`, `#support-existing`,
+`#support-new`, `#support-feedback` (handy for WhatsApp replies or printed QR codes).
 
 ## Preview locally
 
