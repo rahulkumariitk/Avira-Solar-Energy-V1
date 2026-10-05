@@ -61,8 +61,8 @@ To force everyone to load the new files, change the `?v=` number on **all** the 
 (use today's date), e.g.:
 
 ```html
-<link rel="stylesheet" href="css/style.css?v=20261004b">
-<script src="js/main.js?v=20261004b" defer></script>
+<link rel="stylesheet" href="css/style.css?v=20261005">
+<script src="js/main.js?v=20261005" defer></script>
 ```
 
 Find-and-replace the old number with the new one so every link matches. JSON files (projects, partners,

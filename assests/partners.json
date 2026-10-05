@@ -8,19 +8,19 @@
         {
           "name": "Waaree Energies",
           "note": "Channel Partner",
-          "logo": ""
+          "logo": "waaree.png"
         },
         {
           "name": "Adani Solar",
-          "logo": ""
+          "logo": "adani-solar.png"
         },
         {
           "name": "Tata Power Solar",
-          "logo": ""
+          "logo": "tata-power-solar.png"
         },
         {
           "name": "Vikram Solar",
-          "logo": ""
+          "logo": "vikram-solar.png"
         }
       ]
     },
@@ -31,23 +31,23 @@
       "items": [
         {
           "name": "Deye",
-          "logo": ""
+          "logo": "deye.png"
         },
         {
           "name": "Gronsol",
-          "logo": ""
+          "logo": "gronsol.png"
         },
         {
           "name": "Waaree",
-          "logo": ""
+          "logo": "waaree.png"
         },
         {
           "name": "Eastman",
-          "logo": ""
+          "logo": "eastman.png"
         },
         {
           "name": "Havells",
-          "logo": ""
+          "logo": "havells.png"
         }
       ]
     },
@@ -58,19 +58,19 @@
       "items": [
         {
           "name": "APL Apollo",
-          "logo": ""
+          "logo": "apl-apollo.png"
         },
         {
           "name": "Tata Steel",
-          "logo": ""
+          "logo": "tata-steel.png"
         },
         {
           "name": "JSW Steel",
-          "logo": ""
+          "logo": "jsw-steel.png"
         },
         {
           "name": "SAIL",
-          "logo": ""
+          "logo": "sail.png"
         }
       ]
     },
@@ -81,23 +81,23 @@
       "items": [
         {
           "name": "Havells",
-          "logo": ""
+          "logo": "havells.png"
         },
         {
           "name": "Polycab",
-          "logo": ""
+          "logo": "polycab.png"
         },
         {
           "name": "Waacab",
-          "logo": ""
+          "logo": "waacab.png"
         },
         {
           "name": "KEI",
-          "logo": ""
+          "logo": "kei.png"
         },
         {
           "name": "Microtek",
-          "logo": ""
+          "logo": "microtek.png"
         }
       ]
     }
@@ -105,39 +105,39 @@
   "banks": [
     {
       "name": "State Bank of India",
-      "logo": ""
+      "logo": "sbi.png"
     },
     {
       "name": "Punjab National Bank",
-      "logo": ""
+      "logo": "pnb.png"
     },
     {
       "name": "Canara Bank",
-      "logo": ""
+      "logo": "canara-bank.png"
     },
     {
       "name": "Bank of India",
-      "logo": ""
+      "logo": "bank-of-india.png"
     },
     {
       "name": "Bank of Maharashtra",
-      "logo": ""
+      "logo": "bank-of-maharashtra.png"
     },
     {
       "name": "Union Bank of India",
-      "logo": ""
+      "logo": "union-bank.png"
     },
     {
       "name": "UCO Bank",
-      "logo": ""
+      "logo": "uco-bank.png"
     },
     {
       "name": "Bank of Baroda",
-      "logo": ""
+      "logo": "bank-of-baroda.png"
     },
     {
       "name": "Gramin Bank",
-      "logo": ""
+      "logo": "gramin-bank.png"
     }
   ],
   "sales": [
