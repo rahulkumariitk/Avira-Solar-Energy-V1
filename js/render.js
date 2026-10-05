@@ -175,7 +175,7 @@ function renderCareers(jobs) {
   const grid = document.getElementById('jobGrid');
   grid.innerHTML = jobs.map(j => {
     const applyMsg = `Hello Avira Solar, I would like to apply for the ${j.title} position.\nName:\nPhone:\nCity:\nExperience:`;
-    const mail = `mailto:contact@aviragroup.co.in?subject=${encodeURIComponent('Application - ' + j.title)}`;
+    const mail = `mailto:info.aviragroup@gmail.com?subject=${encodeURIComponent('Application - ' + j.title)}`;
     return `
     <article class="job reveal">
       <div class="job-top">
