@@ -15,7 +15,7 @@ js/support.js           Help & Support form (complaints, feedback, questions)
 js/decor.js             Live numbers for the decorative animations (optional)
 assests/projects.json   Project gallery data
 assests/blog_post.json  Solar Guides data
-assests/partners.json   Brand, bank, agency and sales partners
+assests/partners.json   Brand, bank and sales partners
 assests/careers.json    Job openings
 assests/images/         Logo, favicon and project photos
 ```
@@ -34,7 +34,7 @@ assests/images/         Logo, favicon and project photos
 
 **Add a guide** — add an entry to `assests/blog_post.json` (`title`, `category`, `image`, `excerpt`, `content`).
 
-**Partners** — edit `assests/partners.json` (brand groups, `banks`, `agencies`, `sales`).
+**Partners** — edit `assests/partners.json` (brand groups, `banks`, `sales`).
 To show an official logo instead of the initials tile, put the file in `assests/images/partners/`
 and set `"logo": "waaree.png"` on that partner. If a logo file is missing, the initials tile shows automatically.
 
@@ -61,8 +61,8 @@ To force everyone to load the new files, change the `?v=` number on **all** the 
 (use today's date), e.g.:
 
 ```html
-<link rel="stylesheet" href="css/style.css?v=20261004">
-<script src="js/main.js?v=20261004" defer></script>
+<link rel="stylesheet" href="css/style.css?v=20261004b">
+<script src="js/main.js?v=20261004b" defer></script>
 ```
 
 Find-and-replace the old number with the new one so every link matches. JSON files (projects, partners,

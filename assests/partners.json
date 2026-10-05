@@ -5,10 +5,23 @@
       "title": "Solar Panel Partners",
       "icon": "i-panel",
       "items": [
-        { "name": "Waaree Energies", "note": "Channel Partner", "logo": "" },
-        { "name": "Adani Solar", "logo": "" },
-        { "name": "Tata Power Solar", "logo": "" },
-        { "name": "Vikram Solar", "logo": "" }
+        {
+          "name": "Waaree Energies",
+          "note": "Channel Partner",
+          "logo": ""
+        },
+        {
+          "name": "Adani Solar",
+          "logo": ""
+        },
+        {
+          "name": "Tata Power Solar",
+          "logo": ""
+        },
+        {
+          "name": "Vikram Solar",
+          "logo": ""
+        }
       ]
     },
     {
@@ -16,11 +29,26 @@
       "title": "Solar Inverter Partners",
       "icon": "i-bolt",
       "items": [
-        { "name": "Deye", "logo": "" },
-        { "name": "Gronsol", "logo": "" },
-        { "name": "Waaree", "logo": "" },
-        { "name": "Eastman", "logo": "" },
-        { "name": "Havells", "logo": "" }
+        {
+          "name": "Deye",
+          "logo": ""
+        },
+        {
+          "name": "Gronsol",
+          "logo": ""
+        },
+        {
+          "name": "Waaree",
+          "logo": ""
+        },
+        {
+          "name": "Eastman",
+          "logo": ""
+        },
+        {
+          "name": "Havells",
+          "logo": ""
+        }
       ]
     },
     {
@@ -28,10 +56,22 @@
       "title": "Solar Structure Partners",
       "icon": "i-ruler",
       "items": [
-        { "name": "APL Apollo", "logo": "" },
-        { "name": "Tata Steel", "logo": "" },
-        { "name": "JSW Steel", "logo": "" },
-        { "name": "SAIL", "logo": "" }
+        {
+          "name": "APL Apollo",
+          "logo": ""
+        },
+        {
+          "name": "Tata Steel",
+          "logo": ""
+        },
+        {
+          "name": "JSW Steel",
+          "logo": ""
+        },
+        {
+          "name": "SAIL",
+          "logo": ""
+        }
       ]
     },
     {
@@ -39,39 +79,87 @@
       "title": "Wire & Cable Partners",
       "icon": "i-meter",
       "items": [
-        { "name": "Havells", "logo": "" },
-        { "name": "Polycab", "logo": "" },
-        { "name": "Waacab", "logo": "" },
-        { "name": "KEI", "logo": "" },
-        { "name": "Microtek", "logo": "" }
+        {
+          "name": "Havells",
+          "logo": ""
+        },
+        {
+          "name": "Polycab",
+          "logo": ""
+        },
+        {
+          "name": "Waacab",
+          "logo": ""
+        },
+        {
+          "name": "KEI",
+          "logo": ""
+        },
+        {
+          "name": "Microtek",
+          "logo": ""
+        }
       ]
     }
   ],
   "banks": [
-    { "name": "State Bank of India", "logo": "" },
-    { "name": "Punjab National Bank", "logo": "" },
-    { "name": "Canara Bank", "logo": "" },
-    { "name": "Bank of India", "logo": "" },
-    { "name": "Bank of Maharashtra", "logo": "" },
-    { "name": "Union Bank of India", "logo": "" },
-    { "name": "UCO Bank", "logo": "" },
-    { "name": "Bank of Baroda", "logo": "" },
-    { "name": "Gramin Bank", "logo": "" }
-  ],
-  "agencies": [
-    { "name": "Patna Services", "city": "Patna" },
-    { "name": "Ena Solar Pvt Ltd", "city": "Patna" },
-    { "name": "Shrishti Solar", "city": "Patna" },
-    { "name": "Solar Hub", "city": "Patna" },
-    { "name": "Shyama Brothers", "city": "Begusarai" },
-    { "name": "Kalyan Electronic Industries", "city": "Nawada" },
-    { "name": "Girija Automobiles", "city": "Nawada" }
+    {
+      "name": "State Bank of India",
+      "logo": ""
+    },
+    {
+      "name": "Punjab National Bank",
+      "logo": ""
+    },
+    {
+      "name": "Canara Bank",
+      "logo": ""
+    },
+    {
+      "name": "Bank of India",
+      "logo": ""
+    },
+    {
+      "name": "Bank of Maharashtra",
+      "logo": ""
+    },
+    {
+      "name": "Union Bank of India",
+      "logo": ""
+    },
+    {
+      "name": "UCO Bank",
+      "logo": ""
+    },
+    {
+      "name": "Bank of Baroda",
+      "logo": ""
+    },
+    {
+      "name": "Gramin Bank",
+      "logo": ""
+    }
   ],
   "sales": [
-    { "name": "Rampyare Singh", "phone": "+91 8898753143" },
-    { "name": "Krishna Murari", "phone": "+91 6299093129" },
-    { "name": "Neeraj Kumar", "phone": "+91 9204537581" },
-    { "name": "Ashok Singh", "phone": "+91 9939810348" },
-    { "name": "Gangesh Kumar", "phone": "+91 8340763065" }
+    {
+      "name": "Rampyare Singh",
+      "phone": "+91 8898753143"
+    },
+    {
+      "name": "Krishna Murari",
+      "phone": "+91 6299093129"
+    },
+    {
+      "name": "Neeraj Kumar",
+      "phone": "+91 9204537581"
+    },
+    {
+      "name": "Ashok Singh",
+      "phone": "+91 9939810348"
+    },
+    {
+      "name": "Gangesh Kumar",
+      "phone": "+91 8340763065"
+    }
   ]
 }
